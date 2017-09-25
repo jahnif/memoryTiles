@@ -75,19 +75,18 @@ $(function() {
     function wrongGuess() {
     	$('.open').addClass('incorrect');
     	setTimeout(function(){
-    		$('.open').removeClass('incorrect show');
+    		// $('.open').removeClass('incorrect show');
+            cardReset();
     	}, 500);
-    	setTimeout(function(){
-    		// cardReset(500);
-    	}, 850);
     }
 
     // remove star
     function removeStar() {
-        $('.fa-star').first().remove();
+        $('.stars').children().first().remove();
         $('.stars').append('<li><i class="fa fa-star-o"></i><li>')
     }
 
+    // restart the stars
     function restartStars() {
     	$('.stars').children().remove();
     	for (let i = 1; i <=3; i++) {
@@ -95,11 +94,18 @@ $(function() {
     	}
     }
 
+    // copy the stars from the score panel to the win modal
+    function winStars() {
+        $('.winStars').text('');
+        let finishedStars = $('.stars').children().clone();
+        $('.winStars').append(finishedStars);
+    }
+
     // increment move
     function oneMove() {
         moves++;
         $('.moves').html(moves);
-        (moves === 2) ? removeStar(): (moves === 4) ? removeStar() : null;
+        (moves === 12) ? removeStar(): (moves === 18) ? removeStar() : null;
     }
 
     // show card symbol
@@ -115,6 +121,7 @@ $(function() {
     function checkWin() {
         var totalMatched = $('.match').length;
         (totalMatched === 16) ? winMessage(): null;
+        console.log(totalMatched);
     }
 
     // display and create win modal content
@@ -153,6 +160,7 @@ $(function() {
                 cardReset();
                 oneMove();
                 openCards = [];
+                winStars();
                 checkWin();
             } else { // if the open cards don't match animate them as incorrect guesses and reset them
             	wrongGuess();

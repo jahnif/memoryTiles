@@ -106,7 +106,7 @@ h1 {
 }
 
 .score-panel .stars li,
-#winModal .stars li {
+#winModal .winStars li {
     list-style: none;
     display: inline-block;
 }
