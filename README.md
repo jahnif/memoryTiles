@@ -1,6 +1,6 @@
 # Memory Tiles Game
 
-![Gif of the Memory Tiles Game](https://github.com/jahnif/memoryTiles/memoryTiles.gif)
+![Gif of the Memory Tiles Game](memoryTiles.gif)
 
 A classic 16-tile memory matching game. Match all tiles to win. Use fewer moves to obtain a higher score:
 
