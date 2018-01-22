@@ -8,7 +8,8 @@
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/app.css">
 </head>
 
@@ -19,17 +20,31 @@
         </header>
         <section class="score-panel">
             <ul class="stars">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
             </ul>
-            <span class="moves">0</span> Moves
-            <span id="timer"><span class="value"></span></span> <span class="elapsed">Time Elapsed</span>
+            <span class="movesContainer">
+                <span class="moves">0</span> Moves</span>
+            <span class="timerContainer">
+                <span id="timer">00:00
+                    <span class="value"></span>
+                </span>
+                <span class="elapsed">Time Elapsed</span>
+            </span>
             <div class="restart">
                 <i class="fa fa-repeat"></i>
             </div>
         </section>
-        <ul class="deck"></ul>
+        <div class="deckContainer">
+            <ul class="deck"></ul>
+        </div>
     </div>
     <div id="winModal" class="hidden">
         <div id="winModalContent">
@@ -38,15 +53,24 @@
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
             </svg>
             <h1>You Win! Congratulations!</h1>
-            <p>It took you <span id="totalMoves">${moves}</span> moves in <span id="totalTime">${time}</span></p>
-            <div id="starsWinMessage">Your Rating: 
-            <ul class="winStars">
-<!--                 <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li> -->
-            </ul>
+            <p>It took you
+                <span id="totalMoves">${moves}</span> moves in
+                <span id="totalTime">${time}</span>
+            </p>
+            <div id="starsWinMessage">Your Rating:
+                <ul class="winStars">
+                </ul>
             </div>
-            <p></p>
+            <p>
+                <em>
+                    Scoring:
+                    <br> 12 Moves = 3 stars
+                    <br> 13 - 17 Moves = 2 stars
+                    <br> 18 Moves or Greater = 1 star
+
+                </em>
+            </p>
+
             <div class="button">Play Again!</div>
         </div>
     </div>

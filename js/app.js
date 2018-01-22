@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     // Define list of cards
     const allCardsSymbols = [
         'fa-diamond',
@@ -66,37 +66,37 @@ $(function() {
 
     // remove open and show classes from cards with custom time parameter
     function cardReset(time) {
-        setTimeout(function() {
-         	$('.open').removeClass('incorrect open show');
+        setTimeout(function () {
+            $('.open').removeClass('incorrect open show');
         }, time)
     };
 
     // wrong guess function
     function wrongGuess() {
-    	$('.open').addClass('incorrect');
-    	setTimeout(function(){
-    		// $('.open').removeClass('incorrect show');
+        $('.open').addClass('incorrect');
+        setTimeout(function () {
+            // $('.open').removeClass('incorrect show');
             cardReset();
-    	}, 500);
+        }, 500);
     }
 
     // remove star
     function removeStar() {
         $('.stars').children().first().remove();
-        $('.stars').append('<li><i class="fa fa-star-o"></i><li>')
+        $('.stars').append('<li><i class="fa fa-star-o"></i></li>')
     }
 
     // restart the stars
     function restartStars() {
-    	$('.stars').children().remove();
-    	for (let i = 1; i <=3; i++) {
-    		$('.stars').append('<li><i class="fa fa-star"></i><li>')
-    	}
+        $('.stars').children().remove();
+        for (let i = 1; i <= 3; i++) {
+            $('.stars').append('<li><i class="fa fa-star"></i></li>')
+        }
     }
 
     // copy the stars from the score panel to the win modal
     function winStars() {
-        $('.winStars').text('');
+        $('.winStars').empty();
         let finishedStars = $('.stars').children().clone();
         $('.winStars').append(finishedStars);
     }
@@ -105,7 +105,7 @@ $(function() {
     function oneMove() {
         moves++;
         $('.moves').html(moves);
-        (moves === 12) ? removeStar(): (moves === 18) ? removeStar() : null;
+        (moves === 12) ? removeStar() : (moves === 18) ? removeStar() : null;
     }
 
     // show card symbol
@@ -121,7 +121,6 @@ $(function() {
     function checkWin() {
         var totalMatched = $('.match').length;
         (totalMatched === 16) ? winMessage(): null;
-        console.log(totalMatched);
     }
 
     // display and create win modal content
@@ -136,22 +135,26 @@ $(function() {
 
     // restart function
     function restart() {
-        ms = -1;
-        reshuffle();
+        ms = 0;
+        openCards = []
         moves = 0;
+        stopTimer(firstTimer);
+        // $('#timer').text(`00:00`);
+        // firstTimer = setInterval(setTime, 1000);
+
+        reshuffle();
         $('.moves').html(moves);
         restartStars();
     }
 
     // play again button
-    $('.button').click(function() {
+    $('.button').click(function () {
         restart();
         $('#winModal').addClass('hidden');
     });
 
-
     // card event listener
-    $('body').on('click', '.card', function() {
+    $('body').on('click', '.card', function () {
         showCard($(this));
         // check if more than one card is open
         if (openCards.length <= 1) {} else {
@@ -163,7 +166,7 @@ $(function() {
                 winStars();
                 checkWin();
             } else { // if the open cards don't match animate them as incorrect guesses and reset them
-            	wrongGuess();
+                wrongGuess();
                 oneMove();
                 openCards = [];
             }
@@ -171,25 +174,47 @@ $(function() {
     });
 
     // event listener for restart button
-    $('.restart').click(function() {
+    $('.restart').click(function () {
         restart();
     });
+
+    // declare variables for the timer
+    let ms = 0,
+        seconds = 0,
+        minutes = 0;
+
+    // timer function
+    function setTime() {
+        ms++;
+        seconds = Math.floor(ms % 60);
+        seconds = ("0" + seconds).slice(-2);
+        minutes = Math.floor(ms / 60);
+        minutes = ("0" + minutes).slice(-2);
+        $('#timer').text(`${minutes}:${seconds}`);
+    };
+
+    // start the timer with an defined interval
+    let startTimer = function (t) {
+        setInterval(setTime, t);
+    }
+
+    // declare this variable outside the scope to use clearInterval on the timer
+    let firstTimer;
+
+    // stop the timer 
+    let stopTimer = function (firstTimer) {
+        clearInterval(firstTimer);
+                $('#timer').text(`00:00`);
+    };
+
+    // start the timer on the first card click of the game
+    $('body').on('click', '.card', function () {
+        if (openCards.length == 1 && moves == 0) {
+            firstTimer = setInterval(setTime, 1000);
+        }
+    });
+
 });
-
-// stopwatch
-let ms = 0,
-    seconds = 0,
-    minutes = 0;
-setInterval(function() {
-    ms++;
-    seconds = Math.floor(ms % 60);
-    seconds = ("0" + seconds).slice(-2);
-    minutes = Math.floor(ms / 60);
-    minutes = ("0" + minutes).slice(-2);
-    $('#timer').text(`${minutes}:${seconds}`);
-}, 1000);
-
-
 /*
  x set up the event listener for a card. If a card is clicked:
  *  x display the card's symbol (put this functionality in another function that you call from this one)
@@ -200,6 +225,13 @@ setInterval(function() {
  *    x increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+//  x fix timer to start on tile click
+//     x make sure it doesn't start immediately after the restart click
+// x make game responsive
+// x readme
+//     x screenshots
+//     x description of ratings
 
 // Rubric
 /*

@@ -35,30 +35,39 @@ h1 {
 }
 
 
-
 /*
  * Styles for the deck of cards
  */
 
+.deckContainer {
+    width: 80vw;
+    height: 80vw;
+    min-height: 300px;
+    min-width: 300px;
+    max-width: 70vh;
+    max-height: 70vh;
+    ;
+}
+
 .deck {
-    width: 660px;
-    min-height: 680px;
+    /*position: absolute;*/
+    width: 100%;
+    height: 100%;
+    padding: 35px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1.2vw;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
     margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
+    width: 100%;
+    height: 100%;
     background: #2e3d49;
-    font-size: 0;
+    font-size: 0px;
     color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
@@ -68,10 +77,15 @@ h1 {
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.deck .card.open {}
+.deck .card:after,
+.deck .card:before {
+    content: ".";
+    font-size: 35px;
+    visibility: hidden;
+}
 
 .deck .card.show {
-    font-size: 33px;
+    font-size: 35px;
     transition: .3s;
     transform: rotateY(0);
     background: #02b3e4;
@@ -81,10 +95,8 @@ h1 {
 .deck .card.match {
     cursor: default;
     background: #02ccba;
-    font-size: 33px;
+    font-size: 35px;
 }
-
-
 
 
 /*
@@ -96,6 +108,7 @@ h1 {
     width: 445px;
     margin-bottom: 10px;
     position: relative;
+    /* display: flex; */
 }
 
 .score-panel .stars {
@@ -126,7 +139,6 @@ h1 {
     position: absolute;
     left: 210px;
 }
-
 
 
 /* modal styles */
@@ -240,5 +252,35 @@ h1 {
 @keyframes fill {
     100% {
         box-shadow: inset 0px 0px 0px 30px #02ccba;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .score-panel {
+        width: 445px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .movesContainer, .timerContainer, .restart {
+        display: block;
+        margin: 20px 0 0 0;
+    }
+    .score-panel .stars {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        margin: 0 5px 0 0;
+    }
+    .score-panel .stars li,
+    #winModal .winStars li {
+        list-style: none;
+        display: inline-block;
+    }
+    .score-panel .restart {
+        cursor: pointer;
+        float: none;
+        margin-top: 40px;
     }
 }
